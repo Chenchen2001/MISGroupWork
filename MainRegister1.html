@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <title>学生成绩管理系统</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style_login.css">
+    <script src="./js/md5encoder.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.26.1/axios.min.js"></script>
+</head>
+<body>
+    <div class="sign-in-form">
+        <h1>学生成绩管理系统</h1>
+        <div class="container">
+            <div class="w3l-form-info">
+                <div class="w3_info">
+                    <h2>登录</h2>
+                        <img src="./pic/login.jpg" alt="登录" id="log_pic">
+                        <div class="input-group">
+                            <label>
+                                <input type="text" placeholder="请输入你的学工号" name="id" id="id">
+                            </label>
+                        </div>
+                        <img src="./pic/pwd_img.jpg" alt="密码" id="pwd_pic">
+                        <div class="input-group">
+                            <span><i class="fas fa-key"></i></span>
+                            <label>
+                                <input type="Password" placeholder="请输入密码" id="pwd">
+                                <input type="hidden" name="md5pwd" id="md5pwd">
+                            </label>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit" id="submit">登录</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>推荐使用基于Chromium内核的Edge浏览器以获得最佳兼容性</p>
+            <p>Using Microsoft<sup>&copy;</sup> Edge browser based on Chromium core is recommend.</p>
+            <p>本网页仅供课程作业使用，若您无意间访问请关闭本网页。</p>
+            <p>This page is for a course assignment only. Please close the page if you've seen the words.</p>
+        </div>
+    </div>
+</body>
+<script>
+    const submit = document.getElementById('submit');
+    const form_id = document.getElementById("id");
+    const form_pwd = document.getElementById("pwd");
+    const md5pwd = document.getElementById("md5pwd");
+    let net_err = function(){setTimeout("alert('服务器关闭或网络拥堵，请联系管理员')",3000)};
+
+    submit.addEventListener('click', function(){
+        net_err()
+        net_err = function(){};
+        md5pwd.value = md5(form_pwd.value);
+        axios.get('http://101.43.67.38:8000/login',{
+            params: {
+                id : form_id.value,
+                pwd: md5pwd.value
+            }
+        }).then(value=> {
+            net_err();
+            if(value.data.slice(0,1) === 'Y'){
+                alert('登陆成功！')
+                localStorage.setItem("id", form_id.value);
+                localStorage.setItem("name",value.data.slice(2))
+                location.href = 'http://101.43.67.38/MainRegister2.html';
+            }else if(value.data === 'N'){
+                alert('密码错误！');
+            }else if(value.data === 'no'){
+                alert('账号不存在！');
+            }else{
+                alert('网络异常!请检查你的网络连接或稍后再试。');
+            }
+        })
+    })
+
+</script>
+</html>

@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+    /*border: 1px black solid;*/
+}
+#top_back{
+    width: 80%;
+    height: 5%;
+    line-height: 78px;
+    text-align: center;
+    z-index: 1;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color: orange;
+    text-decoration: underline;
+}
+.blocks{
+    border-radius: 10px;
+    margin: 10px;
+}
+#line{
+    width: 100%;
+    height: 5px;
+    background-color: #69B2E6;
+    margin-top: -5px;
+    position: absolute;
+    z-index: 99;
+}
+.left{
+    background: #69B2E6;
+    width: 220px;
+    position: absolute;
+    min-height: 100%;
+    border-right: 1px solid black;
+}
+.options{
+    padding: 5px 10px 10px 10px;
+    border-radius: 0 0 10px 10px;
+    list-style: none;
+    margin: -10px 10px 10px 0;
+    background-color: white;
+    width: 180px;
+}
+.left_option, .left_info, .left_text{
+    font-size: medium;
+    width: 170px;
+    margin: 10px;
+}
+.option_title{
+    background: url('/pic/line.png') 50% 50% repeat-x;
+    height: 50px;
+    padding: 10px 0 0 20px;
+    border-radius: 10px 10px 0 0;
+}
+.main{
+    color: red;
+    width: calc(100% - 220px);
+    margin-left: 220px;
+    position: absolute;
+    font-size: large;
+    border: 1px red solid;
+}
+.search_main,.typein_main,.alter_main,.delete_main,.people_main{
+    width: calc(100% - 250px);
+    margin-top: 20px;
+    margin-left: 250px;
+    position: absolute;
+    font-size: large;
+}
+.table_show{
+    margin-bottom: 200px;
+}
