@@ -12,12 +12,6 @@ The server is powered by `NodeJS`, having `express`,`mysql`,`log4js` installed b
 
 Now having accounts below for test.
 
-Admin: 10000000 adminpassword
-
-Teacher: 10110000 teacherpassword
-
-Student: 20110000 studentpassword
-
 -------------------------
 The Database is waiting for an update by the groupmate. What the database require is in the file `Requirements of the database.md`.
 
