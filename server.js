@@ -24,7 +24,7 @@ log4js.configure({
 const conn = mysql.createConnection({   // 激活与数据库的链接
     host: 'localhost',
     user: 'root',
-    password: 'MISgroup',
+    password: '',   // password is being blocked here for safety.
     database: 'test'
     });
 let sql;
