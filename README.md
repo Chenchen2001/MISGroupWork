@@ -24,28 +24,51 @@ The Database is waiting for an update by the groupmate. What the database requir
 The database for testing now is consists of the following tables.
 
 Table `scores`:
+
 +--------------+-------------+------+-----+---------+-------+
+
 | Field        | Type        | Null | Key | Default | Extra |
+
 +--------------+-------------+------+-----+---------+-------+
+
 | course_id    | char(8)     | YES  |     | NULL    |       |
+
 | teacher_no   | char(4)     | YES  |     | NULL    |       |
+
 | student_id   | char(8)     | YES  |     | NULL    |       |
+
 | score        | tinyint     | YES  |     | NULL    |       |
+
 | student_name | varchar(6)  | YES  |     | NULL    |       |
+
 | course_name  | varchar(15) | YES  |     | NULL    |       |
+
 | credit       | float       | YES  |     | NULL    |       |
+
 | semester     | char(5)     | YES  |     | NULL    |       |
+
 | teacher_id   | char(8)     | YES  |     | NULL    |       |
+
 | postscript   | varchar(20) | YES  |     | NULL    |       |
+
 | status       | tinyint     | YES  |     | NULL    |       |
+
 +--------------+-------------+------+-----+---------+-------+
 
 Table `users`:
+
 +-------+-------------+------+-----+---------+-------+
+
 | Field | Type        | Null | Key | Default | Extra |
+
 +-------+-------------+------+-----+---------+-------+
+
 | id    | varchar(8)  | YES  |     | NULL    |       |
+
 | name  | varchar(6)  | YES  |     | NULL    |       |
+
 | pwd   | varchar(64) | YES  |     | NULL    |       |
+
 | type  | tinyint     | YES  |     | NULL    |       |
+
 +-------+-------------+------+-----+---------+-------+
