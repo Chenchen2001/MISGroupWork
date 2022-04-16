@@ -1,2 +1,8 @@
 # MISGroupWork
-The MIS group work of Shanghai University School of Management
+The MIS group work of Shanghai University School of Management.
+
+This is a Student Score Managing System, made up by using HTML, CSS, JavaScript and Ajax, Axios, jQuery.
+
+This should be runned on a remote server, having MySQL established and being configured correctly in file `server.js`.
+
+The server is functioned by NodeJS, having `express`,`mysql`,'log4js' installed by npm.
