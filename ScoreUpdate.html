@@ -30,11 +30,11 @@
         </ul></div><div class="blocks">
             <div class="option_title"><h3>功能选择</h3></div> <!--这里的a标签等待网址录入-->
         <ul class="options">
-            <li class="left_option"><a href="http://101.43.67.38/ScoreSearch.html">成绩查询</a></li>
-            <li class="left_option"><a href="http://101.43.67.38/ScoreAdd.html">成绩录入(仅教师)</a></li>
-            <li class="left_option"><a href="http://101.43.67.38/ScoreUpdate.html">成绩修改(仅教师)</a></li>
-            <li class="left_option"><a href="http://101.43.67.38/ScoreDelete.html">成绩删除(仅教师)</a></li>
-            <li class="left_option"><a href="http://101.43.67.38/PeopleUpdate.html">人员调整(仅管理员)</a></li>
+            <li class="left_option"><a href="http:// /ScoreSearch.html">成绩查询</a></li>   // IP address is blocked here for safety
+            <li class="left_option"><a href="http:// /ScoreAdd.html">成绩录入(仅教师)</a></li>   // IP address is blocked here for safety
+            <li class="left_option"><a href="http:// /ScoreUpdate.html">成绩修改(仅教师)</a></li>   // IP address is blocked here for safety
+            <li class="left_option"><a href="http:// /ScoreDelete.html">成绩删除(仅教师)</a></li>   // IP address is blocked here for safety
+            <li class="left_option"><a href="http:// /PeopleUpdate.html">人员调整(仅管理员)</a></li>   // IP address is blocked here for safety
         </ul></div><div class="blocks">
             <div class="option_title"><h3>网页作者声明：</h3></div>
         <ul class="options">
@@ -123,14 +123,14 @@
         document.getElementById('student_num').innerText = id;
         document.getElementById('name').innerText = name;
         window.onload = function (){    // 若权限不足则不可进入该页面
-            axios.get('http://101.43.67.38:8000/anthority-teacher', {
+            axios.get('http:// /anthority-teacher', {   // IP address is blocked here for safety
                 params: {
                     user_id: id,
                 }
             }).then(res=>{
                 if(res.data=='err'){
                     alert('登录状态异常或网络异常');
-                    location.href = 'http://101.43.67.38/MainRegister2.html';
+                    location.href = 'http:// /MainRegister2.html';   // IP address is blocked here for safety
                 }
                 if(!res.data){
                     alert("无权限操作");
@@ -142,7 +142,7 @@
         document.getElementById("get_index").addEventListener('click', function(){
             $(".demo").text("");
             if(document.getElementById("student_id").value){
-                axios.get('http://101.43.67.38:8000/get-roll-for-score-update-with-student-id',{
+                axios.get('http:// /get-roll-for-score-update-with-student-id',{   // IP address is blocked here for safety
                     params: {
                         teacher_id: id,
                         course_id: document.getElementById("course_id").value,
@@ -168,7 +168,7 @@
                         }
                     }
             })}else{
-                axios.get('http://101.43.67.38:8000/get-roll-for-score-update-without-student-id',{
+                axios.get('http:// /get-roll-for-score-update-without-student-id',{   // IP address is blocked here for safety
                     params: {
                         teacher_id: id,
                         course_id: document.getElementById("course_id").value,
@@ -202,7 +202,7 @@
                 if(!$(`#score${i+1}`).val()){
                     continue;
                 }
-                axios.get('http://101.43.67.38:8000/post-score-for-score-update',{
+                axios.get('http:// /post-score-for-score-update',{   // IP address is blocked here for safety
                     params:{
                         teacher_id: id,
                         student_id: document.getElementById('tbody').getElementsByTagName("tr")[i].getElementsByTagName("td")[1].innerText,
