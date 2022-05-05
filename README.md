@@ -8,7 +8,7 @@ This is a Student Score Managing System, made up by using `HTML`, `CSS`, `JavaSc
 
 This should be runned on a remote server, having `MySQL` established and being configured correctly in file `server.js`.
 
-The server is powered by `NodeJS`, having `express`,`mysql`,`log4js` installed by npm.
+The server is powered by `NodeJS`, having `express`,`mysql`,`log4js`,`nodemon` installed by npm.
 
 To activate the server, double-clicking `runServer.bat` on Microsoft Windows (or running `nodemon server.js` in shell or cmd).
 
