@@ -48,7 +48,7 @@
 
     submit.addEventListener('click', function(){
         md5pwd.value = md5(form_pwd.value);
-        axios.get('http://101.43.67.38:8000/login',{
+        axios.get('http://<serverIP>/login',{
             params: {
                 id : form_id.value,
                 pwd: md5pwd.value
@@ -58,17 +58,17 @@
                 alert('登陆成功！')
                 localStorage.setItem("id", form_id.value);
                 localStorage.setItem("name",value.data.slice(2))
-                location.href = 'http://101.43.67.38/MainRegister2Student.html';
+                location.href = 'http://<serverIP>/MainRegister2Student.html';
             }else if(value.data.slice(0,1) === 'T'){
                 alert('登陆成功！')
                 localStorage.setItem("id", form_id.value);
                 localStorage.setItem("name",value.data.slice(2))
-                location.href = 'http://101.43.67.38/MainRegister2Teacher.html';
+                location.href = 'http://<serverIP>/MainRegister2Teacher.html';
             }else if(value.data.slice(0,1) === 'M'){
                 alert('登陆成功！')
                 localStorage.setItem("id", form_id.value);
                 localStorage.setItem("name",value.data.slice(2))
-                location.href = 'http://101.43.67.38/MainRegister2Admin.html';
+                location.href = 'http://<serverIP>/MainRegister2Admin.html';
             }else if(value.data === 'N'){
                 alert('密码错误！');
             }else if(value.data === 'no'){
