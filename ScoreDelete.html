@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>学生成绩管理系统</title>
+    <link rel="stylesheet" href="./css/style_admin.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <script src="./jquery-3.6.0.min.js"></script>
+    <style>
+        .in_table{
+            border: 1px solid black;
+            width: 98%;
+            font-size: 18px;
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title" style="position: relative;">
+        <img src="./pic/title.jpg" id="top_back">
+        <a href="http://101.43.67.38/MainRegister1.html" onclick="localStorage.clear()" style="margin-bottom: 5px; position: absolute;bottom: 0px;">退出登陆</a>
+    </div>
+    <div id="line"></div>
+    <div class="left">
+        <div class="blocks">
+            <div class="option_title"><h3>个人信息</h3></div>
+        <ul class="options">
+            <li class="left_info"><span>姓&emsp;名：</span><span id="name"></span></li>
+            <li class="left_info"><span>学工号：</span><span id="student_num"></span></li>
+        </ul></div><div class="blocks">
+            <div class="option_title"><h3>功能选择</h3></div>
+        <ul class="options">
+            <li class="left_option"><a href="http://101.43.67.38/ScoreSearchTeacher.html">成绩查询</a></li>
+            <li class="left_option"><a href="http://101.43.67.38/ScoreAdd.html">成绩录入</a></li>
+            <li class="left_option"><a href="http://101.43.67.38/ScoreUpdate.html">成绩修改</a></li>
+            <li class="left_option"><a href="http://101.43.67.38/ScoreDelete.html">成绩删除</a></li>
+        </ul></div><div class="blocks">
+            <div class="option_title"><h3>网页作者声明：</h3></div>
+        <ul class="options">
+            <li class="left_text"><span><p>本网页仅供课程作业使用，不代表图片资源、数据来源单位的立场或数据。</p><p>网页所用数据均为随机生成，不代表现实情况。</p></span></li>
+        </ul></div><div class="blocks">
+            <div class="option_title"><h3>小组成员</h3></div>
+        <ul class="options">
+            <li class="left_text">严子芊</li>
+            <li class="left_text">陈晨</li>
+            <li class="left_text">李莎莎</li>
+            <li class="left_text">张佳怡</li>
+            <li class="left_text">吕汶津</li>
+            <li class="left_text">席沈一格</li>
+        </ul></div>
+    </div>
+
+    <div class="delete_main">
+        <h2>成绩删除</h2>
+        <span>课程号：</span>
+        <input type="text" name="course_id" id="course_id">
+        <span>学生学号：</span>
+        <input type="text" name="course_id" id="student_id" placeholder="选填">
+        <span style="font-size: 18px">学期：
+    </span><select name="type_in_semester" id="type_in_semester" style="font-size: 18px">
+        <option value="20211">2021学年秋季</option>
+        <option value="20212">2021学年冬季</option>
+        <option value="20213">2021学年春季</option>
+        <option value="20214">2021学年夏季</option>
+        <option value="20221">2022学年秋季</option>
+        <option value="20222">2022学年冬季</option>
+        <option value="20223">2022学年春季</option>
+    </select>
+        <span>班级号：</span><input type="text" id="class_id">
+        <button type="submit" style="width: 70px; height: 25px; font-size: 18px; margin-left: 20px" id="get_index">检索</button>
+        <h4>操作说明：检索条件必须完整输入。</h4>
+
+        <table border="1px" width="90%" height="60px" cellpadding="10px" cellspacing="1px" style="margin-top: 20px">
+            <thead>
+            <tr>
+                <th width="60px">序号</th>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>成绩</th>
+                <th>删除(输入教师号)</th>
+                <th>删除理由</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td style="color: red"></td>
+                <td style="color: red"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button type="submit" id="submit" style="width: 70px; height: 25px; font-size: 18px; margin-left: 20px">提交</button></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        const id = localStorage.getItem('id');
+        const name = localStorage.getItem("name");
+        document.getElementById('student_num').innerText = id;
+        document.getElementById('name').innerText = name;
+        window.onload = function (){
+            axios.get('http://101.43.67.38:8000/anthority-teacher', {
+                params: {
+                    user_id: id,
+                }
+            }).then(res=>{
+                if(res.data=='err'){
+                    alert('登录状态异常或网络异常');
+                    location.href = 'http://101.43.67.38/MainRegister2.html';
+                }
+                if(!res.data){
+                    alert("无权限操作");
+                    window.history.go(-1);
+                }
+            })
+        }
+
+        document.getElementById("get_index").addEventListener('click', function(){
+            $(".demo").text("");
+            if(document.getElementById("student_id").value){
+                axios.get('http://101.43.67.38:8000/get-roll-for-score-delete-with-student-id',{
+                    params: {
+                        teacher_id: id,
+                        course_id: document.getElementById("course_id").value,
+                        class_id: document.getElementById("class_id").value,
+                        semester: document.getElementById("type_in_semester").value,
+                        student_id: document.getElementById("student_id").value
+                    }
+                }).then(value=>{
+                    $("tbody").html("");
+                    if(value.data.length == 0){
+                        alert("无待填写数据。");
+                    }else{
+                        for(let i = 0; i < value.data.length; i++){
+                            let show = value.data[i];
+                            $("tbody").append("<tr>" +
+                                "<td>"+(i+1)+"</td>" +
+                                "<td>"+show.student_id+"</td>" +
+                                "<td>"+show.user_name+"</td>" +
+                                "<td>"+show.score+"</td>" +
+                                "<td>"+`<input type="text" id="teacher${i+1}" class="in_table" oninput="value=value.replace(/[^\\d]/g,'')">`+"</td>" +
+                                "<td>"+`<input type="text" id="postscript${i+1}" class="in_table" maxlength="18">`+"</td>" +
+                                "</tr>")
+                        }
+                    }
+            })}else{
+                axios.get('http://101.43.67.38:8000/get-roll-for-score-delete-without-student-id',{
+                    params: {
+                        teacher_id: id,
+                        course_id: document.getElementById("course_id").value,
+                        class_id: document.getElementById("class_id").value,
+                        semester: document.getElementById("type_in_semester").value,
+                    }
+                }).then(value=>{
+                    $("tbody").html("");
+                    if(value.data.length == 0){
+                        alert("无待填写数据。");
+                    }else{
+                        for(let i = 0; i < value.data.length; i++){
+                            let show = value.data[i];
+                            $("tbody").append("<tr>" +
+                                "<td>"+(i+1)+"</td>" +
+                                "<td>"+show.student_id+"</td>" +
+                                "<td>"+show.user_name+"</td>" +
+                                "<td>"+show.score+"</td>" +
+                                "<td>"+`<input type="text" id="teacher${i+1}" class="in_table" oninput="value=value.replace(/[^\\d]/g,'')">`+"</td>" +
+                                "<td>"+`<input type="text" id="postscript${i+1}" class="in_table" maxlength="18">`+"</td>" +
+                                "</tr>")
+                        }
+                    }
+                })
+            }
+        })
+
+        function isUser(inputted){
+            if(id === inputted){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        document.getElementById("submit").addEventListener('click', function(){
+            let rows = document.getElementById('tbody').getElementsByTagName("tr").length
+            for(let i = 0; i < rows; i++){
+                if(!$(`#teacher${i+1}`).val()){
+                    continue;
+                }
+                if(!isUser($(`#teacher${i+1}`).val())){
+                    alert(document.getElementById('tbody').getElementsByTagName("tr")[i].getElementsByTagName("td")[1].innerText+"处非法操作，请输入当前合法操作人的工号");
+                    continue
+                }
+                axios.get('http://101.43.67.38:8000/post-for-score-delete',{
+                    params:{
+                        teacher_id: id,
+                        student_id: document.getElementById('tbody').getElementsByTagName("tr")[i].getElementsByTagName("td")[1].innerText,
+                        postscript: $(`#postscript${i+1}`).val(),
+                        course_id: document.getElementById("course_id").value,
+                        semester: document.getElementById("type_in_semester").value,
+                        class_id: document.getElementById("class_id").value
+                    }
+                }).then((res)=>{
+                    if(res.data=='err'){
+                        alert(document.getElementById('tbody').getElementsByTagName("tr")[i].getElementsByTagName("td")[1].innerText+'操作失败 请联系管理员');
+                    }else{
+                        console.log(document.getElementById('tbody').getElementsByTagName("tr")[i].getElementsByTagName("td")[1].innerText+"上传完成");
+                    }
+                })
+            }
+            alert("操作结束。");
+            $("#get_index").click();
+        })
+        
+    </script>
+</body>
+</html>

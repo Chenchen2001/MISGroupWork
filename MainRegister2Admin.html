@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>学生成绩管理系统</title>
+    <link rel="stylesheet" href="./css/style_admin.css">
+</head>
+<body>
+    <div class="title" style="position: relative;">
+        <img src="./pic/title.jpg" id="top_back">
+        <a href="http://101.43.67.38/MainRegister1.html" onclick="localStorage.clear()" style="margin-bottom: 5px; position: absolute;bottom: 0px;">退出登陆</a>
+    </div>
+    <div id="line"></div>
+    <div class="left">
+        <div class="blocks">
+            <div class="option_title"><h3>个人信息</h3></div>
+        <ul class="options">
+            <li class="left_info"><span>姓&emsp;名：</span><span id="name"></span></li>
+            <li class="left_info"><span>学工号：</span><span id="student_num"></span></li>
+        </ul></div><div class="blocks">
+            <div class="option_title"><h3>功能选择</h3></div>
+        <ul class="options">
+            <li class="left_option"><a href="http://101.43.67.38/ScoreSearchAdmin.html">填写查询</a></li>
+            <li class="left_option"><a href="http://101.43.67.38/PeopleUpdate.html">学生调整</a></li>
+        </ul></div><div class="blocks">
+            <div class="option_title"><h3>网页作者声明：</h3></div>
+        <ul class="options">
+            <li class="left_text"><span><p>本网页仅供课程作业使用，不代表图片资源、数据来源单位的立场或数据。</p><p>网页所用数据均为随机生成，不代表现实情况。</p></span></li>
+        </ul></div><div class="blocks">
+            <div class="option_title"><h3>小组成员</h3></div>
+        <ul class="options">
+            <li class="left_text">严子芊</li>
+            <li class="left_text">陈晨</li>
+            <li class="left_text">李莎莎</li>
+            <li class="left_text">张佳怡</li>
+            <li class="left_text">吕汶津</li>
+            <li class="left_text">席沈一格</li>
+        </ul></div>
+    </div>
+
+    <div class="main">
+        <h2><p>本网页不是上海大学教务管理系统官方网页！</p><p>若无意访问，请立刻关闭！</p></h2>
+        <h2><p>本网页不是上海大学教务管理系统官方网页！</p><p>若无意访问，请立刻关闭！</p></h2>
+        <h2><p>本网页不是上海大学教务管理系统官方网页！</p><p>若无意访问，请立刻关闭！</p></h2>
+    </div>
+
+    <script>
+        const id = localStorage.getItem('id');
+        const name = localStorage.getItem("name");
+        document.getElementById('student_num').innerText = id;
+        document.getElementById('name').innerText = name;
+    </script>
+</body>
+</html>

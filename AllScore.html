@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>学生成绩管理系统</title>
+    <link rel="stylesheet" href="./css/style_admin.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <script src="./jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="title" style="position: relative;">
+        <img src="./pic/title.jpg" id="top_back">
+        <a href="http://101.43.67.38/MainRegister1.html" onclick="localStorage.clear()" style="margin-bottom: 5px; position: absolute;bottom: 0px;">退出登陆</a>
+    </div>
+    <div id="line"></div>
+    <div class="left">
+        <div class="blocks">
+            <div class="option_title"><h3>个人信息</h3></div>
+        <ul class="options">
+            <li class="left_info"><span>姓&emsp;名：</span><span id="name"></span></li>
+            <li class="left_info"><span>学工号：</span><span id="student_num"></span></li>
+        </ul></div><div class="blocks">
+            <div class="option_title"><h3>功能选择</h3></div> <!--这里的a标签等待网址录入-->
+        <ul class="options">
+            <li class="left_option"><a href="http://101.43.67.38/ScoreSearchStudent.html">成绩查询</a></li>
+            <li class="left_option"><a href="http://101.43.67.38/AllScore.html">成绩大表</a></li>
+        </ul></div><div class="blocks">
+            <div class="option_title"><h3>网页作者声明：</h3></div>
+        <ul class="options">
+            <li class="left_text"><span><p>本网页仅供课程作业使用，不代表图片资源、数据来源单位的立场或数据。</p><p>网页所用数据均为随机生成，不代表现实情况。</p></span></li>
+        </ul></div><div class="blocks">
+            <div class="option_title"><h3>小组成员</h3></div>
+        <ul class="options">
+            <li class="left_text">严子芊</li>
+            <li class="left_text">陈晨</li>
+            <li class="left_text">李莎莎</li>
+            <li class="left_text">张佳怡</li>
+            <li class="left_text">吕汶津</li>
+            <li class="left_text">席沈一格</li>
+        </ul></div>
+    </div>
+
+    <div class="search_main">
+        <h2>成绩大表</h2>
+        <button type="submit" style="width: 200px; height: 25px; font-size: 18px; margin-left: 20px" id="search">获取成绩大表</button>
+        <h4>注意：已选修但未出分课程会以0分计入计算，请等待所有科目出分后参考均分和均绩。</h4>
+
+        <table border="1px" width="90%" height="60px" cellpadding="10px" cellspacing="1px" style="margin-top: 20px">
+            <thead>
+                <tr>
+                    <th width="100px">序号</th>
+                    <th>课程号</th>
+                    <th>课程名</th>
+                    <th>学分数</th>
+                    <th>选修学期</th>
+                    <th>成绩</th>
+                    <th>绩点</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td style="font-weight: bolder;">总计学分：</td>
+                    <td id="total-credit">0</td>
+                    <td style="font-weight: bolder;">平均分：</td>
+                    <td id="avg-score">0</td>
+                    <td style="font-weight: bolder;">平均绩点</td>
+                    <td id="avg-point">0</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        const submit = document.getElementById("search");
+        const id = localStorage.getItem('id');
+        const name = localStorage.getItem("name");
+        window.onload = function (){
+            axios.get('http://101.43.67.38:8000/anthority-student', {
+                params: {
+                    user_id: id,
+                }
+            }).then(res=>{
+                if(res.data=='err'){
+                    alert('登录状态异常或网络异常');
+                    location.href = 'http://101.43.67.38/MainRegister2Student.html';
+                }
+                if(!res.data){
+                    alert("无权限操作");
+                    window.history.go(-1);
+                }
+            })
+        }
+        function get_point(i){
+            if(i>=90){
+                return '4.0'
+            }else if(i>=85){
+                return '3.7'
+            }else if(i>=82){
+                return '3.3'
+            }else if(i>=78){
+                return '3.0'
+            }else if(i>=75){
+                return '2.7'
+            }else if(i>=72){
+                return '2.3'
+            }else if(i>=68){
+                return '2.0'
+            }else if(i>=66){
+                return '1.7'
+            }else if(i>=64){
+                return '1.5'
+            }else if(i>=60){
+                return '1.0'
+            }else{
+                return '0.0'
+            }
+        }
+
+        function get_semester(semester){
+            semester = Number(semester)
+            let res = parseInt(semester/10)
+            switch(semester%10){
+                case 1 :
+                    res += "秋"
+                    break
+                case 2 :
+                    res += "冬"
+                    break
+                case 3 :
+                    res += "春"
+                    break
+                case 4 :
+                    res += "夏"
+                    break
+            }
+            return res;
+        }
+
+        submit.addEventListener('click', function (){
+            let total_credit = 0;
+            let total_point = 0;
+            let total_score = 0;
+            let total_student = 0
+            $(".show_foot_table").text("");
+            axios.get('http://101.43.67.38:8000/all-search', {
+                params: {
+                    student_id: id,
+                }
+            }).then(data=>{
+                $("tbody").html("");
+                total_student = data.data.length
+                if(data.data.length == 0){
+                    alert("网络异常或无数据");
+                    $("#total_credit").text("0");
+                    $("#avg-point").text("0.00");
+                }else{
+                    for(let i = 0; i < data.data.length; i++){
+                        let show = data.data[i];
+                        let point = get_point(show.score);
+                        total_credit += show.credit;
+                        total_point += show.credit*point;
+                        if(show.score == null){
+                            show.score = '未出'
+                        }
+                        if(show.score == '未出' || show.score < 60){
+                            if(typeof(show.score)=='number'){
+                                total_score += show.score;
+                            }
+                            $("tbody").append("<tr>" +
+                                "<td>"+(i+1)+"</td>" +
+                                "<td>"+show.course_id+"</td>" +
+                                "<td>"+show.course_name+"</td>" +
+                                "<td>"+show.credit+"</td>" +
+                                "<td>"+get_semester(show.semester)+"</td>" +
+                                "<td style='color:red'>"+show.score+"</td>" +
+                                "<td>"+point+"</td>" +
+                                "<tr>")
+                        }else{
+                            total_score += show.score;
+                            $("tbody").append("<tr>" +
+                                "<td>"+(i+1)+"</td>" +
+                                "<td>"+show.course_id+"</td>" +
+                                "<td>"+show.course_name+"</td>" +
+                                "<td>"+show.credit+"</td>" +
+                                "<td>"+get_semester(show.semester)+"</td>" +
+                                "<td>"+show.score+"</td>" +
+                                "<td>"+point+"</td>" +
+                                "<tr>")
+                        }
+                    }
+                    $("#total-credit").text(total_credit.toFixed(1));
+                    $("#avg-score").text((total_score/total_student).toFixed(3));
+                    $("#avg-point").text((total_point/total_credit).toFixed(3));
+                }
+            })
+        })
+
+        document.getElementById('student_num').innerText = id;
+        document.getElementById('name').innerText = name;
+    </script>
+</body>
+</html>
