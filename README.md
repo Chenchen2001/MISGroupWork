@@ -56,5 +56,5 @@ Table `main` for score-storing:
 |-------|-------------|------|-----|---------|-------|
 | student_id | char(8)  | NO  | PRI  | NULL    |       |
 |course_recog  | char(64)|YES  | PRI | NULL    |       |
-| score   | tinyint  |     | NULL    |       |
+| score   | tinyint  |YES| | NULL    |       |
 | postscript   | varchar(5) | YES  |     | NULL    |       |
