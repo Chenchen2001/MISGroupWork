@@ -12,6 +12,8 @@ The server is powered by `NodeJS`, having `express`,`mysql`,`log4js` installed b
 
 To activate the server, double-clicking `runServer.bat` on Microsoft Windows (or running `nodemon server.js` in shell or cmd).
 
+CONFIRM THAT PORT 8000 IS NOT OCCUPIED, or change the port in all files to your unoccupied one.
+
 
 -------------------------
 
