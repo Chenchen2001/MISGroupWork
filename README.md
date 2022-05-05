@@ -17,7 +17,7 @@ To activate the server, double-clicking `runServer.bat` on Microsoft Windows (or
 
 The database consists of the following tables.
 
-Table `users` for storing all user-info:
+Table `users` for storing all user-info(All passwords are encoded by md5 so that they've got the same length.):
 
 | Field        | Type        | Null | Key | Default | Extra |
 |--------------|-------------|------|-----|---------|-------|
