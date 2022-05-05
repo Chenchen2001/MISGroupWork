@@ -2,7 +2,7 @@
 
 ## THIS IS A PRIVATE PROJECT. JUST FOR A COURSE ASSIGNMENT.
 
-The MIS group work of Shanghai University School of Management.
+The MIS group work of Shanghai University School of Management in March to June, 2022.
 
 This is a Student Score Managing System, made up by using `HTML`, `CSS`, `JavaScript` and `Ajax`, `Axios`, `jQuery`.
 
