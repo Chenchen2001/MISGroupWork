@@ -10,7 +10,7 @@
 <body>
     <div class="title" style="position: relative;">
         <img src="./pic/title.jpg" id="top_back">
-        <a href="http://101.43.67.38/MainRegister1.html" onclick="localStorage.clear()" style="margin-bottom: 5px; position: absolute;bottom: 0px;">退出登陆</a>
+        <a href="http://<serverIP>/MainRegister1.html" onclick="localStorage.clear()" style="margin-bottom: 5px; position: absolute;bottom: 0px;">退出登陆</a>
     </div>
     <div id="line"></div>
     <div class="left">
@@ -22,8 +22,8 @@
         </ul></div><div class="blocks">
             <div class="option_title"><h3>功能选择</h3></div> <!--这里的a标签等待网址录入-->
         <ul class="options">
-            <li class="left_option"><a href="http://101.43.67.38/ScoreSearchStudent.html">成绩查询</a></li>
-            <li class="left_option"><a href="http://101.43.67.38/AllScore.html">成绩大表</a></li>
+            <li class="left_option"><a href="http://<serverIP>/ScoreSearchStudent.html">成绩查询</a></li>
+            <li class="left_option"><a href="http://<serverIP>/AllScore.html">成绩大表</a></li>
         </ul></div><div class="blocks">
             <div class="option_title"><h3>网页作者声明：</h3></div>
         <ul class="options">
@@ -78,14 +78,14 @@
         const id = localStorage.getItem('id');
         const name = localStorage.getItem("name");
         window.onload = function (){
-            axios.get('http://101.43.67.38:8000/anthority-student', {
+            axios.get('http://<serverIP>:8000/anthority-student', {
                 params: {
                     user_id: id,
                 }
             }).then(res=>{
                 if(res.data=='err'){
                     alert('登录状态异常或网络异常');
-                    location.href = 'http://101.43.67.38/MainRegister2Student.html';
+                    location.href = 'http://<serverIP>/MainRegister2Student.html';
                 }
                 if(!res.data){
                     alert("无权限操作");
@@ -145,7 +145,7 @@
             let total_score = 0;
             let total_student = 0
             $(".show_foot_table").text("");
-            axios.get('http://101.43.67.38:8000/all-search', {
+            axios.get('http://<serverIP>:8000/all-search', {
                 params: {
                     student_id: id,
                 }
