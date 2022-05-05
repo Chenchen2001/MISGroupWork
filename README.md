@@ -63,4 +63,4 @@ Table `main` for score-storing:
 | score   | tinyint  |YES| | NULL    |       |
 | postscript   | varchar(5) | YES  |     | NULL    |       |
   
-There might be the same `course_recog` appears in the far future, but there's  no necessity for me to think so far 😀.
+There might be the same `course_recog` appears in the far future, but there's  no need for me to think so far as its probability is so low😀.
