@@ -10,36 +10,51 @@ This should be runned on a remote server, having `MySQL` established and being c
 
 The server is powered by `NodeJS`, having `express`,`mysql`,`log4js` installed by npm.
 
-Now having accounts below for test.
+To activate the server, double-clicking `runServer.bat` on Microsoft Windows (or running `nodemon server.js` in shell or cmd).
+
 
 -------------------------
-The Database is waiting for an update by the groupmate. What the database require is in the file `Requirements of the database.md`.
 
-The database for testing now is consists of the following tables.
+The database consists of the following tables.
 
-Table `scores`:
+Table `users` for storing all user-info:
 
 | Field        | Type        | Null | Key | Default | Extra |
 |--------------|-------------|------|-----|---------|-------|
-| course_id    | char(8)     | YES  |     | NULL    |       |
-| teacher_no   | char(4)     | YES  |     | NULL    |       |
-| student_id   | char(8)     | YES  |     | NULL    |       |
-| score        | tinyint     | YES  |     | NULL    |       |
-| student_name | varchar(6)  | YES  |     | NULL    |       |
-| course_name  | varchar(15) | YES  |     | NULL    |       |
-| credit       | float       | YES  |     | NULL    |       |
-| semester     | char(5)     | YES  |     | NULL    |       |
-| teacher_id   | char(8)     | YES  |     | NULL    |       |
-| postscript   | varchar(20) | YES  |     | NULL    |       |
-| status       | tinyint     | YES  |     | NULL    |       |
+| user_id    | char(8)     | NO  |PRI | NULL    |       |
+| user_name | varchar(8)  | YES  |     | NULL    |       |
+| password  | char(64) | YES  |     | NULL    |       |
+| authority       | tinyint      | YES  |     | NULL    |       |
 
-Table `users`:
+
+Table `courses` for storing all course-info:
 
 
 | Field | Type        | Null | Key | Default | Extra |
 |-------|-------------|------|-----|---------|-------|
-| id    | varchar(8)  | YES  |     | NULL    |       |
-| name  | varchar(6)  | YES  |     | NULL    |       |
-| pwd   | varchar(64) | YES  |     | NULL    |       |
-| type  | tinyint     | YES  |     | NULL    |       |
+| course_id | char(8)  | NO  | PRI  | NULL    |       |
+| course_name  | varchar(20)  | YES  |     | NULL    |       |
+| credit   | tinyint | YES  |     | NULL    |       |
 
+
+
+Table `lessonss` for storing all course-info (`course_recog` is an identifier of a lesson.It is the md5 encoded string of 'teacher_id'+'course_id'+'class_id'+'semester'):
+
+
+| Field | Type        | Null | Key | Default | Extra |
+|-------|-------------|------|-----|---------|-------|
+| teacher_id | char(8)  | NO  | PRI  | NULL    |       |
+| course_id  | char(8)  | YES  |     | NULL    |       |
+| class_id   | char(4) | YES  |     | NULL    |       |
+| semester   | char(5) | YES  |     | NULL    |       |
+| course_recog   | char(64) | NO  | PRI | NULL    |       |
+
+
+Table `main` for score-storing:
+
+| Field | Type        | Null | Key | Default | Extra |
+|-------|-------------|------|-----|---------|-------|
+| student_id | char(8)  | NO  | PRI  | NULL    |       |
+|course_recog  | char(64)|YES  | PRI | NULL    |       |
+| score   | tinyint  |     | NULL    |       |
+| postscript   | varchar(5) | YES  |     | NULL    |       |
