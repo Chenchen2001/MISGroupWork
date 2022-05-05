@@ -62,3 +62,5 @@ Table `main` for score-storing:
 |course_recog  | char(64)|YES  | PRI | NULL    |       |
 | score   | tinyint  |YES| | NULL    |       |
 | postscript   | varchar(5) | YES  |     | NULL    |       |
+  
+There might be the same `course_recog` appears in the far future, but there's  no necessity for me to think so far 😀.
