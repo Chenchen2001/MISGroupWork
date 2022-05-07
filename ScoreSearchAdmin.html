@@ -162,50 +162,25 @@
                         let point = get_point(show.score);
                         total_credit += show.credit;
                         total_point += show.credit*point;
-                        if(id/10000000>=2){
-                            if(show.score == null){
-                                show.score = '未出'
-                            }
-                            if(show.score == '未出' || show.score < 60){
-                                $("tbody").append("<tr>" +
-                                    "<td>"+(i+1)+"</td>" +
-                                    "<td>"+show.course_id+"</td>" +
-                                    "<td>"+show.course_name+"</td>" +
-                                    "<td>"+show.credit+"</td>" +
-                                    "<td style='color:red'>"+show.score+"</td>" +
-                                    "<td>"+point+"</td>" +
-                                    "<tr>")
-                            }else{
-                                $("tbody").append("<tr>" +
-                                    "<td>"+(i+1)+"</td>" +
-                                    "<td>"+show.course_id+"</td>" +
-                                    "<td>"+show.course_name+"</td>" +
-                                    "<td>"+show.credit+"</td>" +
-                                    "<td>"+show.score+"</td>" +
-                                    "<td>"+point+"</td>" +
-                                    "<tr>")
-                            }
+                        if(show.score == null){
+                            show.score = '未录入'
+                            $("tbody").append("<tr>" +
+                                "<td>"+show.student_id+"</td>" +
+                                "<td>"+show.course_id+'-'+show.teacher_id+'-'+show.class_id+"</td>" +
+                                "<td>"+show.course_name+"</td>" +
+                                "<td>"+show.credit+"</td>" +
+                                "<td style='color:red'>"+show.score+"</td>" +
+                                "<td>"+point+"</td>" +
+                                "<tr>")
                         }else{
-                            if(show.score == null){
-                                show.score = '未录入'
-                                $("tbody").append("<tr>" +
-                                    "<td>"+show.student_id+"</td>" +
-                                    "<td>"+show.course_id+'-'+show.teacher_id+'-'+show.class_id+"</td>" +
-                                    "<td>"+show.course_name+"</td>" +
-                                    "<td>"+show.credit+"</td>" +
-                                    "<td style='color:red'>"+show.score+"</td>" +
-                                    "<td>"+point+"</td>" +
-                                    "<tr>")
-                            }else{
-                                $("tbody").append("<tr>" +
-                                    "<td>"+show.student_id+"</td>" +
-                                    "<td>"+show.course_id+'-'+show.teacher_id+'-'+show.class_id+"</td>" +
-                                    "<td>"+show.course_name+"</td>" +
-                                    "<td>"+show.credit+"</td>" +
-                                    "<td>"+show.score+"</td>" +
-                                    "<td>"+point+"</td>" +
-                                    "<tr>")
-                                }
+                            $("tbody").append("<tr>" +
+                                "<td>"+show.student_id+"</td>" +
+                                "<td>"+show.course_id+'-'+show.teacher_id+'-'+show.class_id+"</td>" +
+                                "<td>"+show.course_name+"</td>" +
+                                "<td>"+show.credit+"</td>" +
+                                "<td>"+show.score+"</td>" +
+                                "<td>"+point+"</td>" +
+                                "<tr>")
                         }
                     }
                     $("#avg-point").text((total_point/total_credit).toFixed(3));
