@@ -5,21 +5,21 @@ const app = express()   // 激活express中间件
 
 let log = log4js.getLogger("Management");   // 激活日志并配置
 log4js.configure({
-    appenders:{
-        file: {
-            type:'dateFile',
-            filename:'./logs/server.log',
-            pattern: '-yyyy-MM-dd.log'
-        },      
-        consoleout: {type: "console"}
+    appenders: {
+        infoLogs: { 
+            type: 'dateFile',
+            filename: './logs/server_log',
+            backups:5,  // 仅保留最新的五个日志文件
+            pattern: ".yyyy-MM-dd", // 用于确定何时滚动日志的模式
+            alwaysIncludePattern: true,
+            compress: true
+        },
+        console: { type: 'console' }
     },
     categories: {
-        default:{
-            appenders: ['file', 'consoleout'],
-            level: 'info'
-        }
-    }   
-});
+        default: { appenders: [ 'infoLogs', 'console' ], level: 'all' }
+    }
+  });
 
 const conn = mysql.createConnection({   // 激活与数据库的链接
     host: 'localhost',
