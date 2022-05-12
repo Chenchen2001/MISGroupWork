@@ -90,12 +90,16 @@ app.get('/search', (request, response)=>{
         id = params.student_id;
         semester = params.semester;
         course_name = params.course_name ? params.course_name : '';
-        if(id / 10000000 > 2){
+        sqlAuth = `select authority from users where user_id='${id}';`
+        conn.query(sqlAuth,(err,result)=>{
+            auth = result[0].authority;
+        })
+        if(auth >= 2){
             sql = `select lessons.course_id,courses.course_name,courses.credit,main.score 
             from main left join lessons on main.course_recog=lessons.course_recog 
             left join courses on courses.course_id=lessons.course_id where student_id="${id}" and lessons.semester="${semester}" and 
             courses.course_name like "%${course_name}%" order by lessons.course_id;`;
-        }else if(id / 10000000 > 1){
+        }else if(auth >= 1){
             course_id = params.course_id ? params.course_id : '';
             class_id = params.class_id ? params.class_id : '';
             if(params.forEmpty == 'true'){
@@ -103,13 +107,13 @@ app.get('/search', (request, response)=>{
                 from main left join lessons on main.course_recog=lessons.course_recog 
                 left join courses on courses.course_id=lessons.course_id where teacher_id="${id}" and lessons.semester="${semester}" and 
                 courses.course_name like "%${course_name}%" and lessons.course_id like "%${course_id}%" and lessons.class_id like "%${class_id}%" 
-                and main.score is null order by lessons.course_id;`;
+                and main.score is null order by lessons.course_id limit 0,200;`;
             }else{
                 sql = `select main.student_id,lessons.class_id,lessons.course_id,courses.course_name,courses.credit,main.score 
                 from main left join lessons on main.course_recog=lessons.course_recog 
                 left join courses on courses.course_id=lessons.course_id where teacher_id="${id}" and lessons.semester="${semester}" and 
                 courses.course_name like "%${course_name}%" and lessons.course_id like "%${course_id}%" and lessons.class_id like "%${class_id}%" 
-                order by lessons.course_id;`;
+                order by lessons.course_id limit 0,200;`;
             }
         }else{
             teacher_id = params.teacher_id ? params.teacher_id : '';
@@ -120,13 +124,13 @@ app.get('/search', (request, response)=>{
                 from main left join lessons on main.course_recog=lessons.course_recog 
                 left join courses on courses.course_id=lessons.course_id where lessons.semester="${semester}" and 
                 courses.course_name like "%${course_name}%" and lessons.teacher_id like "%${teacher_id}%" and lessons.course_id like "%${course_id}%" 
-                and lessons.class_id like "%${class_id}%" and main.score is null order by lessons.course_id;`;
+                and lessons.class_id like "%${class_id}%" and main.score is null order by lessons.course_id limit 0,200;`;
             }else{
                 sql = `select main.student_id,lessons.class_id,lessons.course_id,lessons.teacher_id,courses.course_name,courses.credit,main.score 
                 from main left join lessons on main.course_recog=lessons.course_recog 
                 left join courses on courses.course_id=lessons.course_id where lessons.semester="${semester}" and 
                 courses.course_name like "%${course_name}%" and lessons.teacher_id like "%${teacher_id}%" and lessons.course_id like "%${course_id}%" 
-                and lessons.class_id like "%${class_id}%" order by lessons.course_id;`;
+                and lessons.class_id like "%${class_id}%" order by lessons.course_id limit 0,200;`;
             }
         }
         conn.query(sql, (err, result)=>{
