@@ -34,7 +34,7 @@ a:hover{
     background: #69B2E6;
     width: 220px;
     position: absolute;
-    min-height: 100%;
+    min-height: 650%;
     border-right: 1px solid black;
 }
 .options{
