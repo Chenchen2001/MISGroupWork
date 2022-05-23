@@ -8,8 +8,6 @@
 
 当前数据表的描述：
 
-![image-20220331172047895](C:\Users\chenc\AppData\Roaming\Typora\typora-user-images\image-20220331172047895.png)
-
 ~~~json
 {
     id: "学工号 八位固定",
@@ -18,12 +16,6 @@
     type: "权限等级 0-管理员 1-教师 2-学生"
 }
 ~~~
-
-
-
-![image-20220331172055014](C:\Users\chenc\AppData\Roaming\Typora\typora-user-images\image-20220331172055014.png)
-
-![image-20220331172102338](C:\Users\chenc\AppData\Roaming\Typora\typora-user-images\image-20220331172102338.png)
 
 ~~~JSON
 {
@@ -41,7 +33,6 @@
 }
 ~~~
 
-![image-20220331172114533](C:\Users\chenc\AppData\Roaming\Typora\typora-user-images\image-20220331172114533.png)
 
 期望：
 
