@@ -19,7 +19,7 @@ CONFIRM THAT PORT 8000 IS NOT OCCUPIED, or change the port in all files to your 
 
 -------------------------
 
-The database consists of the following tables.
+The database consists of the following tables. Data examples are in the file `sample database`, put it into your MySQL database path.
 
 Table `users` for storing all user-info(All passwords are encoded by md5 so that they've got the same length.):
 
